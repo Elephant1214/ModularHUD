@@ -4,7 +4,7 @@ import net.fabricmc.api.ModInitializer
 import org.slf4j.LoggerFactory
 
 object ModularHUD : ModInitializer {
-    private val logger = LoggerFactory.getLogger("ModularHUD")
+    private val LOGGER = LoggerFactory.getLogger("Modular HUD")
 
 	override fun onInitialize() {
 	}

@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
     id("fabric-loom") version ("1.5-SNAPSHOT")
+    id("io.gitlab.arturbosch.detekt") version("1.23.3")
 }
 
 version = properties["mod_version"]!! as String
@@ -33,13 +34,15 @@ dependencies {
 
     modImplementation("net.fabricmc.fabric-api:fabric-api:${properties["fabric_version"]}")
     modImplementation("net.fabricmc:fabric-language-kotlin:${properties["fabric_kotlin_version"]}")
-
-    api(project(":modularhud-api"))
-
-    include(project(":modularhud-api"))
     // Uncomment the following line to enable the deprecated Fabric API modules.
     // Even though these are deprecated, they're still included in the current API.
     // modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
+}
+
+detekt {
+    toolVersion = "1.23.3"
+    config.setFrom(file("detekt.yml"))
+    buildUponDefaultConfig = true
 }
 
 tasks {
@@ -53,6 +56,14 @@ tasks {
 
         from(sourceSets["main"].resources.srcDirs) {
             exclude("fabric.mod.json")
+        }
+    }
+
+    withType<KotlinCompile>().all {
+        kotlinOptions {
+            freeCompilerArgs += listOf(
+                "-opt-in=kotlin.ExperimentalStdlibApi"
+            )
         }
     }
 }
