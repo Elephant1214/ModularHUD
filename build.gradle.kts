@@ -4,7 +4,7 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
     id("fabric-loom") version ("1.5-SNAPSHOT")
-    id("io.gitlab.arturbosch.detekt") version("1.23.3")
+    id("io.gitlab.arturbosch.detekt") version("1.23.5")
 }
 
 version = properties["mod_version"]!! as String
@@ -40,7 +40,7 @@ dependencies {
 }
 
 detekt {
-    toolVersion = "1.23.3"
+    toolVersion = "1.23.5"
     config.setFrom(file("detekt.yml"))
     buildUponDefaultConfig = true
 }
