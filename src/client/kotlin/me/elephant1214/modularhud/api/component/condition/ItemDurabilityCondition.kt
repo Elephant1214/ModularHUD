@@ -1,10 +1,10 @@
 package me.elephant1214.modularhud.api.component.condition
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import me.elephant1214.modularhud.api.part.ItemLocation
 import me.elephant1214.modularhud.api.part.ItemLocation.*
 import me.elephant1214.modularhud.component.context.ComponentHandler
-import me.elephant1214.modularhud.serializers.ItemDurabilityConditionSerializer
 import me.elephant1214.modularhud.variable.VariableManager
 
 /**
@@ -15,11 +15,12 @@ import me.elephant1214.modularhud.variable.VariableManager
  * @property location Where the item should be fetched from. Cannot be used with [INVENTORY] or [FAKE] and will throw
  * an error when loaded.
  * @property threshold The durability threshold. Must be more than 0.
- * @property variable The variable for the slot numer when using [HOT_BAR] or [ARMOR], or an item ID when using
- * [INVENTORY_DURABILITY].
+ * @property variable The variable for the slot number when using [HOT_BAR] or [ARMOR], or an item ID when using
+ * [DURABILITY].
  */
 @Suppress("UnsafeCallOnNullableType")
-@Serializable(with = ItemDurabilityConditionSerializer::class)
+@SerialName("durability")
+@Serializable
 data class ItemDurabilityCondition(
     val location: ItemLocation,
     val variable: String? = null,
@@ -28,7 +29,7 @@ data class ItemDurabilityCondition(
     @Suppress("ReturnCount")
     override fun compute(handler: ComponentHandler): Boolean {
         return when (this.location) {
-            INVENTORY_DURABILITY -> {
+            DURABILITY -> {
                 val durability = handler.getDurabilityForFirstItem(this.variable!!)
                 return durability == 0 || durability >= this.threshold
             }

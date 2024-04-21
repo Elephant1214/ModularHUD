@@ -19,13 +19,13 @@ class ItemComponent(
     val location: ItemLocation,
     val variable: String? = null,
     position: Position,
-    scale: Double,
+    scale: Double = 1.0,
     condition: ConditionComposite? = null
 ) : Component(position, scale, condition) {
     override fun render(handler: ComponentHandler) {
         when (this.location) {
             INVENTORY -> handler.drawItemWithCount(this.variable!!, this.position, this.scale)
-            INVENTORY_DURABILITY -> handler.drawInvItemWithDurability(this.variable!!, this.position, this.scale)
+            DURABILITY -> handler.drawInvItemWithDurability(this.variable!!, this.position, this.scale)
             HOT_BAR -> {
                 val variable = VariableManager.getVariable(this.variable!!)
                 if (variable != null) {

@@ -1,5 +1,6 @@
 package me.elephant1214.modularhud.api.component
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import me.elephant1214.modularhud.api.component.condition.ConditionComposite
 import me.elephant1214.modularhud.api.part.Position
@@ -14,8 +15,8 @@ import me.elephant1214.modularhud.component.context.ComponentHandler
  */
 @Serializable
 sealed class Component(
-    val position: Position,
-    val scale: Double,
+    @SerialName("pos") val position: Position,
+    val scale: Double = 1.0,
     val condition: ConditionComposite? = null
 ) {
     fun shouldRender(handler: ComponentHandler): Boolean {

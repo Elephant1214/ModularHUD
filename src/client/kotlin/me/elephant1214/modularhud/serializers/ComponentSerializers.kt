@@ -19,7 +19,6 @@ import me.elephant1214.modularhud.api.part.ItemLocation.*
 import me.elephant1214.modularhud.api.part.Position
 import me.elephant1214.modularhud.api.part.Size
 import me.elephant1214.modularhud.variable.VariableManager
-import kotlin.properties.Delegates.notNull
 
 object ImageComponentSerializer : KSerializer<ImageComponent> {
     override val descriptor: SerialDescriptor = buildClassSerialDescriptor("image") {
@@ -40,12 +39,12 @@ object ImageComponentSerializer : KSerializer<ImageComponent> {
 
     override fun deserialize(decoder: Decoder): ImageComponent {
         lateinit var url: String
-        lateinit var position: Position
-        var scale by notNull<Double>()
+        var position = Position()
+        var scale = 1.0
         var condition: ConditionComposite? = null
 
         val composite = decoder.beginStructure(descriptor)
-        while (true) {
+        loop@ while (true) {
             when (val index = composite.decodeElementIndex(descriptor)) {
                 CompositeDecoder.DECODE_DONE -> break
                 0 -> url = composite.decodeStringElement(descriptor, index)
@@ -85,12 +84,12 @@ object ItemComponentSerializer : KSerializer<ItemComponent> {
     override fun deserialize(decoder: Decoder): ItemComponent {
         lateinit var location: ItemLocation
         var variable: String? = null
-        lateinit var position: Position
-        var scale by notNull<Double>()
+        var position = Position()
+        var scale = 1.0
         var condition: ConditionComposite? = null
 
         val composite = decoder.beginStructure(descriptor)
-        while (true) {
+        loop@ while (true) {
             when (val index = composite.decodeElementIndex(descriptor)) {
                 CompositeDecoder.DECODE_DONE -> break
                 0 -> location = composite.decodeSerializableElement(descriptor, index, ItemLocation.serializer())
@@ -98,7 +97,7 @@ object ItemComponentSerializer : KSerializer<ItemComponent> {
                     variable = composite.decodeNullableSerializableElement(descriptor, index, String.serializer())
                     if (variable == null) continue
 
-                    if (location == INVENTORY || location == INVENTORY_DURABILITY || location == FAKE) {
+                    if (location == INVENTORY || location == DURABILITY || location == FAKE) {
                         if (!VariableManager.cacheItem(variable)) {
                             error("Unable to find an item named \"$variable\"")
                         }
@@ -141,12 +140,12 @@ object RectangleComponentSerializer : KSerializer<RectangleComponent> {
     override fun deserialize(decoder: Decoder): RectangleComponent {
         lateinit var size: Size
         lateinit var color: Color
-        lateinit var position: Position
-        var scale by notNull<Double>()
+        var position = Position()
+        var scale = 1.0
         var condition: ConditionComposite? = null
 
         val composite = decoder.beginStructure(descriptor)
-        while (true) {
+        loop@ while (true) {
             when (val index = composite.decodeElementIndex(descriptor)) {
                 CompositeDecoder.DECODE_DONE -> break
                 0 -> size = composite.decodeSerializableElement(descriptor, index, Size.serializer())
@@ -184,12 +183,12 @@ object ResourceComponentSerializer : KSerializer<ResourceComponent> {
 
     override fun deserialize(decoder: Decoder): ResourceComponent {
         lateinit var identifier: String
-        lateinit var position: Position
-        var scale by notNull<Double>()
+        var position = Position()
+        var scale = 1.0
         var condition: ConditionComposite? = null
 
         val composite = decoder.beginStructure(descriptor)
-        while (true) {
+        loop@ while (true) {
             when (val index = composite.decodeElementIndex(descriptor)) {
                 CompositeDecoder.DECODE_DONE -> break
                 0 -> identifier = composite.decodeStringElement(descriptor, index)
@@ -226,12 +225,12 @@ object TextComponentSerializer : KSerializer<TextComponent> {
 
     override fun deserialize(decoder: Decoder): TextComponent {
         lateinit var content: String
-        lateinit var position: Position
-        var scale by notNull<Double>()
+        var position = Position()
+        var scale = 1.0
         var condition: ConditionComposite? = null
 
         val composite = decoder.beginStructure(descriptor)
-        while (true) {
+        loop@ while (true) {
             when (val index = composite.decodeElementIndex(descriptor)) {
                 CompositeDecoder.DECODE_DONE -> break
                 0 -> content = composite.decodeStringElement(descriptor, index)

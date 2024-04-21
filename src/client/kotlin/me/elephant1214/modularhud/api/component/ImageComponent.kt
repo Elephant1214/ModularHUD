@@ -10,7 +10,7 @@ import me.elephant1214.modularhud.serializers.ImageComponentSerializer
 class ImageComponent(
     val url: String,
     position: Position,
-    scale: Double,
+    scale: Double = 1.0,
     condition: ConditionComposite? = null
 ) : Component(position, scale, condition) {
     override fun render(handler: ComponentHandler) {

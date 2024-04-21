@@ -1,11 +1,12 @@
 package me.elephant1214.modularhud.module
 
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import me.elephant1214.modularhud.ModularHUDClient
+import me.elephant1214.modularhud.ModularHUDClient.JSON
 import me.elephant1214.modularhud.ModularHUDClient.LOGGER
 import me.elephant1214.modularhud.api.module.HUDModule
 import me.elephant1214.modularhud.api.part.Position
+import me.elephant1214.modularhud.component.context.ComponentHandler
 import me.elephant1214.modularhud.configuration.ModuleEntry
 import me.elephant1214.modularhud.screens.ModuleScreen
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
@@ -53,37 +54,48 @@ object ModuleManager {
             if (!file.isFile || !file.isFile || !file.name.endsWith(".json")) continue
 
             try {
-                val decoded = Json.decodeFromStream(HUDModule.serializer(), file.inputStream())
-                val configured = ModularHUDClient.config.getConfiguredModule(decoded.id)
+                val decoded = JSON.decodeFromStream<HUDModule>(file.inputStream())
+                val missingDeps = decoded.checkDependencies()
+                if (missingDeps.isNotEmpty()) {
+                    LOGGER.error("HUD module ${file.name} is missing required addons: ${missingDeps.joinToString(", ")}")
+                    failed++
+                    continue
+                }
 
-                if (configured == null) {
+                val configuration = ModularHUDClient.config.getConfiguredModule(decoded.id)
+
+                if (configuration == null) {
                     val entry = ModuleEntry(decoded.id, Position(0, 0), true)
                     ModularHUDClient.config.modules.add(entry)
                     registerModule(decoded, entry.position)
-                } else if (configured.enabled) {
-                    registerModule(decoded, configured.position)
+                } else if (configuration.enabled) {
+                    registerModule(decoded, configuration.position)
                 } else {
                     ignored++
                 }
 
             } catch (e: IllegalArgumentException) {
-                LOGGER.error("Caught an exception while trying to deserialize ${file.name}:\n${e.stackTraceToString()}")
+                LOGGER.error("Caught an exception while trying to deserialize ${file.name}", e)
                 failed++
             }
         }
 
         ModularHUDClient.saveConfig()
 
-        LOGGER.info("Loaded ${modules.size} module(s). Ignored $ignored disabled module(s).")
+        LOGGER.info("Loaded ${this.modules.size} module(s). Ignored $ignored disabled module(s).")
         if (failed > 0) {
             LOGGER.warn("$failed module(s) failed to load with an exception")
         }
     }
 
-    private fun render(drawContext: DrawContext) {
-        if (client.currentScreen !is ModuleScreen) {
-            for (module in modules.values) {
-                module.render(drawContext)
+    private fun render(ctx: DrawContext) {
+        if (this.client.currentScreen !is ModuleScreen) {
+            for (module in this.modules.values) {
+                val handler = ComponentHandler(ctx, module)
+
+                if (module.hudModule.shouldRender(handler)) {
+                    module.render(handler)
+                }
             }
         }
     }

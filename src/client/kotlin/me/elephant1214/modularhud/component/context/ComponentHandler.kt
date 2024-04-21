@@ -14,7 +14,7 @@ import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 
 @Suppress("TooManyFunctions")
-class ComponentHandler(private val ctx: DrawContext, private val module: ModuleHandler) {
+class ComponentHandler(val ctx: DrawContext, private val module: ModuleHandler) {
     private val client = MinecraftClient.getInstance()
 
     /**

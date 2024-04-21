@@ -15,11 +15,11 @@ import me.elephant1214.modularhud.variable.VariableManager
  * You can set text color using `&color` where `color` is either an integer, or a hex
  * color in the format of `#hexColor`.
  */
-@Serializable(with = TextComponentSerializer::class)
+@Serializable(TextComponentSerializer::class)
 class TextComponent(
     val content: String,
     position: Position,
-    scale: Double,
+    scale: Double = 1.0,
     condition: ConditionComposite? = null
 ) : Component(position, scale, condition) {
     override fun render(handler: ComponentHandler) {

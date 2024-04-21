@@ -27,6 +27,7 @@ object ModularHUDClient : ClientModInitializer {
     const val MOD_ID = "modularhud"
 
     internal val LOGGER: Logger = LoggerFactory.getLogger("Modular HUD")
+    internal val JSON = Json { prettyPrint = true }
 
     val configDir: Path =
         FabricLoader.getInstance().configDir.resolve(MOD_ID).apply { if (!exists()) createDirectory() }
@@ -35,7 +36,7 @@ object ModularHUDClient : ClientModInitializer {
     private val configFile: File = File(this.configDir.toFile(), "modularHudConfig.json").apply {
         if (!exists()) {
             createNewFile()
-            Json.encodeToStream(MHUDConfig(arrayListOf()), this.outputStream())
+            JSON.encodeToStream(MHUDConfig(arrayListOf()), this.outputStream())
         }
     }
     internal val config: MHUDConfig = Json.decodeFromStream(MHUDConfig.serializer(), this.configFile.inputStream())
@@ -51,7 +52,7 @@ object ModularHUDClient : ClientModInitializer {
     }
 
     fun saveConfig() {
-        Json.encodeToStream(config, this.configFile.outputStream())
+        JSON.encodeToStream(config, this.configFile.outputStream())
     }
 
     private fun setupModuleScreen() {

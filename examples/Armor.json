@@ -1,0 +1,306 @@
+{
+    "id": "modularhud.armor",
+    "name": "Armor",
+    "authors": [
+        "Elephant_1214"
+    ],
+    "size": {
+        "width": 46,
+        "height": 98
+    },
+    "components": [
+        {
+            "type": "item",
+            "loc": "armor",
+            "var": "modularhud.player.armor.head",
+            "pos": {
+                "x": 2
+            },
+            "condition": {
+                "op": "OR",
+                "operands": [
+                    {
+                        "type": "count",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.head",
+                        "threshold": 1
+                    },
+                    {
+                        "type": "durability",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.head",
+                        "threshold": 1
+                    }
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "content": "${modularhud.player.armor.head.durability}",
+            "pos": {
+                "x": 20,
+                "y": 5
+            },
+            "condition": {
+                "op": "OR",
+                "operands": [
+                    {
+                        "type": "count",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.head",
+                        "threshold": 1
+                    },
+                    {
+                        "type": "durability",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.head",
+                        "threshold": 1
+                    }
+                ]
+            }
+        },
+        {
+            "type": "item",
+            "loc": "armor",
+            "var": "modularhud.player.armor.chest",
+            "pos": {
+                "x": 2,
+                "y": 17
+            },
+            "condition": {
+                "op": "OR",
+                "operands": [
+                    {
+                        "type": "count",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.chest",
+                        "threshold": 1
+                    },
+                    {
+                        "type": "durability",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.chest",
+                        "threshold": 1
+                    }
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "content": "${modularhud.player.armor.chest.durability}",
+            "pos": {
+                "x": 20,
+                "y": 21
+            },
+            "condition": {
+                "op": "OR",
+                "operands": [
+                    {
+                        "type": "count",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.chest",
+                        "threshold": 1
+                    },
+                    {
+                        "type": "durability",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.chest",
+                        "threshold": 1
+                    }
+                ]
+            }
+        },
+        {
+            "type": "item",
+            "loc": "armor",
+            "var": "modularhud.player.armor.legs",
+            "pos": {
+                "x": 2,
+                "y": 33
+            },
+            "condition": {
+                "op": "OR",
+                "operands": [
+                    {
+                        "type": "count",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.legs",
+                        "threshold": 1
+                    },
+                    {
+                        "type": "durability",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.legs",
+                        "threshold": 1
+                    }
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "content": "${modularhud.player.armor.legs.durability}",
+            "pos": {
+                "x": 20,
+                "y": 37
+            },
+            "condition": {
+                "op": "OR",
+                "operands": [
+                    {
+                        "type": "count",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.legs",
+                        "threshold": 1
+                    },
+                    {
+                        "type": "durability",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.legs",
+                        "threshold": 1
+                    }
+                ]
+            }
+        },
+        {
+            "type": "item",
+            "loc": "armor",
+            "var": "modularhud.player.armor.feet",
+            "pos": {
+                "x": 2,
+                "y": 49
+            },
+            "condition": {
+                "op": "OR",
+                "operands": [
+                    {
+                        "type": "count",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.feet",
+                        "threshold": 1
+                    },
+                    {
+                        "type": "durability",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.feet",
+                        "threshold": 1
+                    }
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "content": "${modularhud.player.armor.feet.durability}",
+            "pos": {
+                "x": 20,
+                "y": 53
+            },
+            "condition": {
+                "op": "OR",
+                "operands": [
+                    {
+                        "type": "count",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.feet",
+                        "threshold": 1
+                    },
+                    {
+                        "type": "durability",
+                        "location": "armor",
+                        "variable": "modularhud.player.armor.feet",
+                        "threshold": 1
+                    }
+                ]
+            }
+        },
+        {
+            "type": "item",
+            "loc": "hot_bar",
+            "var": "modularhud.player.inventory.selectedSlot",
+            "pos": {
+                "x": 2,
+                "y": 65
+            },
+            "condition": {
+                "op": "AND",
+                "operands": [
+                    {
+                        "type": "count",
+                        "location": "hot_bar",
+                        "variable": "modularhud.player.inventory.selectedSlot",
+                        "threshold": 1
+                    }
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "content": "${modularhud.player.inventory.selectedSlot.durability}",
+            "pos": {
+                "x": 20,
+                "y": 69
+            },
+            "condition": {
+                "op": "AND",
+                "operands": [
+                    {
+                        "type": "durability",
+                        "location": "hot_bar",
+                        "variable": "modularhud.player.inventory.selectedSlot",
+                        "threshold": 1
+                    },
+                    {
+                        "type": "count",
+                        "location": "hot_bar",
+                        "variable": "modularhud.player.inventory.selectedSlot",
+                        "threshold": 1
+                    }
+                ]
+            }
+        },
+        {
+            "type": "item",
+            "loc": "offhand",
+            "var": null,
+            "pos": {
+                "x": 2,
+                "y": 81
+            },
+            "condition": {
+                "op": "AND",
+                "operands": [
+                    {
+                        "type": "count",
+                        "location": "offhand",
+                        "threshold": 1
+                    }
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "content": "${modularhud.player.inventory.offHand.durability}",
+            "pos": {
+                "x": 20,
+                "y": 85
+            },
+            "condition": {
+                "op": "AND",
+                "operands": [
+                    {
+                        "type": "durability",
+                        "location": "offhand",
+                        "threshold": 1
+                    },
+                    {
+                        "type": "count",
+                        "location": "offhand",
+                        "threshold": 1
+                    }
+                ]
+            }
+        }
+    ],
+    "dependencies": [
+        "modularhud"
+    ]
+}

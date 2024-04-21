@@ -4,7 +4,6 @@ import me.elephant1214.modularhud.api.component.Component
 import me.elephant1214.modularhud.api.module.HUDModule
 import me.elephant1214.modularhud.api.part.Position
 import me.elephant1214.modularhud.component.context.ComponentHandler
-import net.minecraft.client.gui.DrawContext
 import org.lwjgl.glfw.GLFW
 
 /**
@@ -28,18 +27,16 @@ class ModuleHandler(
         this.y = pos.y
     }
 
-    fun render(ctx: DrawContext) {
+    fun render(handler: ComponentHandler) {
         this.checkAndFixPosition()
-
-        val handler = ComponentHandler(ctx, this)
 
         for (component: Component in this.components) {
             if (component.shouldRender(handler)) {
-                component.render(ComponentHandler(ctx, this))
+                component.render(handler)
             }
         }
         if (this.actionMenu.isOpen) {
-            this.actionMenu.render(ctx)
+            this.actionMenu.render(handler.ctx)
         }
     }
 

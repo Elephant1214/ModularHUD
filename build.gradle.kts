@@ -25,7 +25,10 @@ loom {
     }
 }
 
-repositories {}
+repositories {
+    mavenCentral()
+    maven("https://s01.oss.sonatype.org/content/repositories/releases/")
+}
 
 dependencies {
     minecraft("com.mojang:minecraft:${properties["minecraft_version"]}")
@@ -46,17 +49,13 @@ detekt {
 }
 
 tasks {
-    named<Copy>("processResources") {
-        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    named("processResources") {
+        // duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
-        from(sourceSets["main"].resources.srcDirs) {
-            include("fabric.mod.json")
-            expand(project.properties)
-        }
-
-        from(sourceSets["main"].resources.srcDirs) {
-            exclude("fabric.mod.json")
-        }
+        // from(sourceSets["main"].resources.srcDirs) {
+        //     include("fabric.mod.json")
+        //     expand(project.properties)
+        // }
     }
 
     withType<KotlinCompile>().all {

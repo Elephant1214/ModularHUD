@@ -10,7 +10,9 @@ import me.elephant1214.modularhud.api.rgbaToInt
  * @param color The color as a single integer
  */
 @Serializable
-data class Color(val color: Int) {
+data class Color(
+    val color: Int
+) {
     /**
      * @param r Red value
      * @param g Green value

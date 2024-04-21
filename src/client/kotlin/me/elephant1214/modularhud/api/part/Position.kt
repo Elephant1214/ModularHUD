@@ -6,4 +6,7 @@ import kotlinx.serialization.Serializable
  * A two-dimensional screen position
  */
 @Serializable
-data class Position(val x: Int, val y: Int)
+data class Position(
+    val x: Int = 0,
+    val y: Int = 0
+)

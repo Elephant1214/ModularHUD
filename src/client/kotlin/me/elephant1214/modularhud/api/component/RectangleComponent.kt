@@ -13,7 +13,7 @@ class RectangleComponent(
     val size: Size,
     val color: Color,
     position: Position,
-    scale: Double,
+    scale: Double = 1.0,
     condition: ConditionComposite? = null
 ) : Component(position, scale, condition) {
     override fun render(handler: ComponentHandler) {

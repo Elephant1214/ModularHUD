@@ -2,6 +2,7 @@ package me.elephant1214.modularhud.screens
 
 import me.elephant1214.modularhud.ModularHUDClient
 import me.elephant1214.modularhud.api.part.Color
+import me.elephant1214.modularhud.component.context.ComponentHandler
 import me.elephant1214.modularhud.module.ModuleManager
 import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.gui.screen.Screen
@@ -9,14 +10,18 @@ import net.minecraft.text.Text
 import org.lwjgl.glfw.GLFW
 
 class ModuleScreen : Screen(Text.empty()) {
-    override fun render(context: DrawContext?, mouseX: Int, mouseY: Int, delta: Float) {
-        this.renderInGameBackground(context)
+    override fun render(ctx: DrawContext, mouseX: Int, mouseY: Int, delta: Float) {
+        this.renderInGameBackground(ctx)
 
         ModuleManager.getModules().forEach { module ->
-            context!!.drawBorder(
-                module.x - 1, module.y - 1, module.width() + 1, module.height() + 1, Color(255, 255, 255, 128).color
+            val handler = ComponentHandler(ctx, module)
+
+            if (!module.hudModule.shouldRender(handler)) return
+
+            ctx.drawBorder(
+                module.x, module.y, module.width(), module.height(), Color(255, 255, 255, 128).color
             )
-            module.render(context)
+            module.render(handler)
 
             module.updatePosition(mouseX.toDouble(), mouseY.toDouble())
         }

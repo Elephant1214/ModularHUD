@@ -1,6 +1,9 @@
 package me.elephant1214.modularhud.api.part
 
-data class Translation(val key: String, val replacements: Array<Any>) {
+data class Translation(
+    val key: String,
+    val replacements: Array<Any>
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
